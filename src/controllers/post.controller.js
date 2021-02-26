@@ -49,5 +49,18 @@ module.exports = {
     catch(err) {
       res.status(400).json( { message: err.message } )
     }
+  },
+  async show(req, res){
+    try {
+      const { postId } = req.params;
+      const post = await Post.findById(postId);
+      if(!post){
+        throw new Error('Post Not Found')
+      }
+      res.status(200).json( { message: 'Post Found' , data: post } )
+    }
+    catch(err) {
+      res.status(400).json( { message: err.message } )
+    }
   }
 }
